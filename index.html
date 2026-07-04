@@ -5,9 +5,54 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>beachris.ink — Old School e retrato de pet, tatuado à mão</title>
 <meta name="description" content="Bea tatua Old School raiz e retrato de pet em São Paulo. Preto fechado, traço grosso, desenho exclusivo pra cada bicho.">
+<!-- TODO: defina o domínio real e atualize canonical, og:url e o "url" do JSON-LD abaixo -->
+<link rel="canonical" href="https://SEU-DOMINIO-AQUI/">
+
+<!-- Open Graph / redes sociais -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:url" content="https://SEU-DOMINIO-AQUI/">
+<meta property="og:title" content="beachris.ink — Old School e retrato de pet, tatuado à mão">
+<meta property="og:description" content="Bea tatua Old School raiz e retrato de pet em São Paulo. Preto fechado, traço grosso, desenho exclusivo pra cada bicho.">
+<meta property="og:image" content="https://SEU-DOMINIO-AQUI/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="beachris.ink — Old School e retrato de pet, tatuado à mão">
+<meta name="twitter:description" content="Old School raiz e retrato de pet, tatuado à mão em São Paulo.">
+<meta name="twitter:image" content="https://SEU-DOMINIO-AQUI/assets/og-image.jpg">
+
+<!-- Favicons -->
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/favicon-180.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Archivo+Narrow:wght@600;700&display=swap" rel="stylesheet">
+
+<!-- TODO: endereço físico, telefone e horário de atendimento abaixo são fictícios/incompletos — ver relatório -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TattooParlor",
+  "name": "beachris.ink",
+  "image": "https://SEU-DOMINIO-AQUI/assets/og-image.jpg",
+  "url": "https://SEU-DOMINIO-AQUI/",
+  "telephone": "+5511900000000",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "São Paulo",
+    "addressRegion": "SP",
+    "addressCountry": "BR"
+  },
+  "sameAs": [
+    "https://instagram.com/beachris.ink",
+    "https://tiktok.com/@beachris.ink"
+  ]
+}
+</script>
 <style>
   @font-face {
     font-family: 'Old School United';
@@ -195,6 +240,11 @@
   .footer__links a span { color: var(--brass); }
   .footer__bottom { max-width: 1200px; margin: 36px auto 0; padding-top: 22px; border-top: 1px solid rgba(255,255,255,0.07); display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; }
   .footer__bottom span { font-size: 13px; color: var(--dim-2); }
+
+  .credit { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-size: 13px; color: var(--dim-2); transition: color .15s; }
+  .credit:hover { color: var(--paper); }
+  .credit-badge { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 50%; background: transparent; border: 1px solid var(--brass); color: var(--brass); font-family: 'Old School United', serif; font-size: 12px; letter-spacing: 0.02em; transition: background-color .15s, color .15s; }
+  .credit:hover .credit-badge { background: var(--brass); color: var(--ink); }
 </style>
 </head>
 <body>
@@ -423,7 +473,7 @@
     </div>
     <div class="footer__bottom">
       <span>© <span id="year"></span> beachris.ink · Todos os direitos reservados.</span>
-      <span>Feito com tinta preta e café.</span>
+      <a href="https://leoluciano.com.br/" target="_blank" rel="noopener" class="credit">Criado por <span class="credit-badge">LL</span></a>
     </div>
   </footer>
 </div>
