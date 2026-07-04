@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>beachris.ink — Old School e retrato de pet, tatuado à mão</title>
+<meta name="description" content="Bea tatua Old School raiz e retrato de pet em São Paulo. Preto fechado, traço grosso, desenho exclusivo pra cada bicho.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Archivo+Narrow:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  @font-face {
+    font-family: 'Old School United';
+    src: url('assets/fonts/OldSchoolUnited-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  :root {
+    --ink: #0c0c0b;
+    --ink-2: #100f0c;
+    --paper: #EDEBE3;
+    --brass: #A8A277;
+    --brass-hover: #b8b285;
+    --line: rgba(168,162,119,0.18);
+    --muted: #b9b7ac;
+    --muted-2: #9b998c;
+    --dim: #8f8d82;
+    --dim-2: #6f6d63;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scrollbar-width: none; -ms-overflow-style: none; }
+  html::-webkit-scrollbar { display: none; }
+  body { margin: 0; overflow-x: hidden; }
+  ::selection { background: var(--brass); color: var(--ink); }
+  input::placeholder, textarea::placeholder { color: var(--dim-2); }
+  input:focus, textarea:focus { outline: none; border-color: var(--brass) !important; }
+
+  @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+
+  .shell { background: var(--ink); color: var(--paper); font-family: 'Archivo', system-ui, sans-serif; min-height: 100vh; }
+
+  /* nav */
+  .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 50; backdrop-filter: blur(10px); background: rgba(12,12,11,0.72); border-bottom: 1px solid var(--line); }
+  .nav__inner { max-width: 1200px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; }
+  .brand__avatar { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--brass); display: block; }
+  .brand__name { font-family: 'Old School United', serif; font-size: 19px; letter-spacing: 0.02em; color: var(--paper); }
+  .brand__name b { color: var(--brass); font-weight: 400; }
+  .nav__links { display: flex; align-items: center; gap: 8px; }
+  .nav__link { display: none; text-decoration: none; color: #c9c7bc; font-size: 14px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; padding: 8px 12px; }
+  .nav__link:hover { color: var(--paper); }
+  @media (min-width: 760px) { .nav__link { display: inline-block; } }
+
+  /* buttons + chips, shared */
+  .btn { text-decoration: none; border-radius: 2px; font-weight: 800; letter-spacing: 0.03em; text-transform: uppercase; display: inline-flex; align-items: center; gap: 10px; transition: background-color .15s, border-color .15s, color .15s; }
+  .btn--brass { color: var(--ink); background: var(--brass); box-shadow: 0 8px 30px rgba(168,162,119,0.22); }
+  .btn--brass:hover { background: var(--brass-hover); }
+  .btn--outline { color: var(--paper); border: 1px solid rgba(237,235,227,0.28); font-weight: 700; }
+  .btn--outline:hover { border-color: var(--brass); color: var(--brass); }
+  .btn--sm { font-size: 13px; padding: 10px 16px; }
+  .btn--lg { font-size: 15px; padding: 16px 30px; }
+
+  .chip { display: inline-flex; align-items: center; gap: 9px; border: 1px solid rgba(168,162,119,0.4); border-radius: 100px; padding: 7px 15px; }
+  .chip__dot { width: 7px; height: 7px; border-radius: 50%; background: var(--brass); box-shadow: 0 0 10px var(--brass); flex: none; }
+  .chip__label { font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #c9c7bc; font-weight: 600; }
+  .chip__label--brass { color: var(--brass); }
+  .chip--hero { margin-bottom: 26px; }
+
+  .eyebrow { font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--brass); font-weight: 700; margin-bottom: 16px; }
+  .eyebrow--tight { margin-bottom: 14px; }
+
+  /* hero */
+  .hero { position: relative; min-height: 100vh; display: flex; align-items: center; padding: 128px 24px 76px; overflow: hidden; }
+  .hero__glow { position: absolute; inset: 0; background: radial-gradient(120% 90% at 78% 20%, rgba(110,107,81,0.30) 0%, rgba(12,12,11,0) 55%), radial-gradient(100% 80% at 8% 100%, rgba(110,107,81,0.14) 0%, rgba(12,12,11,0) 60%); }
+  .hero__grain { position: absolute; inset: 0; opacity: 0.5; background-image: repeating-linear-gradient(0deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 4px); }
+  .hero__grid { position: relative; max-width: 1200px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 48px; align-items: center; }
+  .hero__copy { animation: rise 0.7s ease both; }
+  .hero__title { font-family: 'Old School United', serif; font-weight: 400; font-size: clamp(46px, 7.2vw, 92px); line-height: 0.95; margin: 0 0 22px; letter-spacing: 0.01em; color: var(--paper); }
+  .hero__title em { color: var(--brass); font-style: normal; }
+  .hero__lead { font-size: clamp(16px, 1.5vw, 19px); line-height: 1.6; color: var(--muted); max-width: 500px; margin: 0 0 34px; }
+  .hero__lead strong { color: var(--paper); font-weight: 700; }
+  .hero__actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+  .hero__stats { display: flex; gap: 34px; margin: 48px 0 0 3px; }
+  .stat__num { font-family: 'Old School United', serif; font-size: 30px; color: var(--brass); line-height: 1; }
+  .stat__label { font-size: 12.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dim); margin-top: 7px; }
+  .stat__rule { width: 1px; background: rgba(255,255,255,0.1); }
+
+  .hero__portrait { position: relative; max-width: 400px; margin: 0 auto; animation: rise 0.9s ease both; transform: translateY(-10px); }
+  .hero__ring { position: absolute; top: -14px; left: -14px; right: -14px; bottom: -14px; border: 1px solid rgba(168,162,119,0.35); border-radius: 50%; transform: rotate(-3deg); }
+  .hero__portrait img { position: relative; display: block; width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 50%; box-shadow: 0 30px 70px rgba(0,0,0,0.55); }
+  .hero__handle { position: absolute; bottom: 4%; left: -22px; background: var(--ink); border: 1px solid rgba(168,162,119,0.3); border-radius: 4px; padding: 11px 16px; transform: rotate(-4deg); }
+  .hero__handle span { font-family: 'Old School United', serif; font-size: 14px; color: var(--brass); }
+  .hero__scroll { position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%); font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--dim-2); }
+
+  @media (max-width: 900px) {
+    .hero__grid, .about { grid-template-columns: 1fr !important; gap: 40px !important; }
+    .cta__grid { grid-template-columns: 1fr !important; gap: 34px !important; }
+    .hero__portrait { transform: none; }
+  }
+  @media (max-width: 640px) {
+    .footer__grid { grid-template-columns: 1fr 1fr !important; gap: 28px !important; }
+  }
+
+  /* tour banner */
+  .tour { position: relative; overflow: hidden; padding: 88px 24px; background: var(--ink-2); border-top: 1px solid rgba(168,162,119,0.4); border-bottom: 1px solid rgba(168,162,119,0.4); }
+  .tour__flags { position: absolute; inset: 0; display: flex; }
+  .tour__flags div:first-child { width: 50%; height: 100%; background: linear-gradient(to right, #169b62 0 33.33%, #ffffff 33.33% 66.66%, #ff883e 66.66% 100%); }
+  .tour__flags div:last-child { width: 50%; height: 100%; background: linear-gradient(to bottom, #AA151B 0 25%, #F1BF00 25% 75%, #AA151B 75% 100%); }
+  .tour__overlay { position: absolute; inset: 0; background: rgba(12,12,11,0.76); }
+  .tour__content { position: relative; max-width: 880px; margin: 0 auto; text-align: center; }
+  .tour__title { font-family: 'Old School United', serif; font-weight: 400; font-size: clamp(30px, 4.6vw, 54px); line-height: 1.05; margin: 20px 0 16px; color: var(--paper); }
+  .tour__title em { color: var(--brass); font-style: normal; }
+  .tour__text { font-size: 16px; line-height: 1.7; color: var(--muted); max-width: 540px; margin: 0 auto 28px; }
+  .tour__dates { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-bottom: 30px; }
+  .tour__date { border: 1px solid rgba(168,162,119,0.35); border-radius: 4px; padding: 14px 22px; }
+  .tour__date-city { font-family: 'Old School United', serif; font-size: 15px; color: var(--brass); margin-bottom: 4px; }
+  .tour__date-range { font-size: 13.5px; color: #c9c7bc; }
+
+  /* marquee */
+  .marquee { border-top: 1px solid rgba(168,162,119,0.14); border-bottom: 1px solid rgba(168,162,119,0.14); background: var(--ink-2); overflow: hidden; padding: 16px 0; }
+  .marquee__track { display: flex; width: max-content; animation: marquee-scroll 26s linear infinite; animation-duration: var(--marquee-duration, 26s); pointer-events: none; }
+  .marquee__row { display: flex; gap: 44px; white-space: nowrap; font-family: 'Old School United', serif; font-size: 20px; color: #4f4d43; letter-spacing: 0.04em; padding-right: 44px; }
+  .marquee__row span:nth-child(even) { color: var(--brass); }
+  @keyframes marquee-scroll { from { transform: translateX(0); } to { transform: translateX(calc(-1 * var(--marquee-distance, 50%))); } }
+
+  /* about */
+  .about { max-width: 1200px; margin: 0 auto; padding: 104px 24px 116px; display: grid; grid-template-columns: 0.82fr 1.18fr; gap: 58px; align-items: center; }
+  .about__media { position: relative; }
+  .about__media img { display: block; width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: 40% 55%; filter: grayscale(0.15); border-radius: 6px; box-shadow: 0 24px 60px rgba(0,0,0,0.5); }
+  .about__tag { position: absolute; bottom: 22px; right: -22px; background: var(--brass); color: var(--ink); padding: 14px 18px; border-radius: 4px; max-width: 190px; transform: rotate(-3deg); }
+  .about__tag p { font-family: 'Old School United', serif; font-size: 15px; line-height: 1.1; margin: 0; }
+  .about__title { font-family: 'Old School United', serif; font-weight: 400; font-size: clamp(30px, 3.8vw, 50px); line-height: 1.06; margin: 0 0 24px; color: var(--paper); }
+  .about__text { font-size: 16.5px; line-height: 1.75; color: var(--muted); margin: 0 0 18px; }
+  .about__text strong { color: var(--paper); }
+  .about__cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; max-width: 460px; margin-top: 32px; }
+  .about__card { border: 1px solid rgba(168,162,119,0.2); border-radius: 4px; padding: 16px; }
+  .about__card-title { font-family: 'Old School United', serif; font-size: 16px; color: var(--brass); margin-bottom: 6px; }
+  .about__card-text { font-size: 13.5px; color: var(--muted-2); line-height: 1.5; }
+
+  /* portfolio */
+  .portfolio { background: var(--ink-2); border-top: 1px solid rgba(168,162,119,0.12); }
+  .portfolio__head { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 18px; max-width: 1200px; margin: 0 auto; padding: 0 24px; width: 100%; }
+  .portfolio__title { font-family: 'Old School United', serif; font-weight: 400; font-size: clamp(30px, 4.2vw, 54px); line-height: 1; margin: 0; color: var(--paper); }
+  .portfolio__note { font-size: 14.5px; color: var(--dim); max-width: 400px; margin: 0 0 0 6px; line-height: 1.6; }
+  .gallery-pin { position: relative; }
+  .gallery-sticky { position: sticky; top: 61px; height: calc(100vh - 61px); overflow: hidden; display: flex; flex-direction: column; }
+  .portfolio__head { margin-top: 64px; }
+  .gallery-middle { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; justify-content: center; }
+  .gallery-track { display: flex; gap: 24px; will-change: transform; padding-left: max(24px, calc((100vw - 1200px) / 2)); padding-right: 24px; }
+  .gallery-track img { flex: 0 0 auto; width: min(58vw, 600px); height: 58vh; object-fit: cover; border-radius: 4px; box-shadow: 0 24px 60px rgba(0,0,0,0.45); }
+
+  @media (max-width: 899px) {
+    .gallery-pin { height: auto !important; }
+    .gallery-sticky { position: static; height: auto; overflow: visible; padding: 56px 0; }
+    .portfolio__head { margin-top: 0; }
+    .gallery-middle { flex: none; padding: 40px 0; }
+    .gallery-track { overflow-x: auto; scroll-snap-type: x mandatory; transform: none !important; padding-left: 24px; }
+    .gallery-track img { width: 78vw; height: 48vh; scroll-snap-align: start; }
+  }
+
+  /* orçamento */
+  .cta { padding: 100px 24px 116px; position: relative; overflow: hidden; }
+  .cta__glow { position: absolute; inset: 0; background: radial-gradient(90% 70% at 85% 0%, rgba(110,107,81,0.20) 0%, rgba(12,12,11,0) 55%); }
+  .cta__grid { position: relative; max-width: 1080px; margin: 0 auto; display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 54px; align-items: start; }
+  .cta__title { font-family: 'Old School United', serif; font-weight: 400; font-size: clamp(30px, 4vw, 50px); line-height: 1.04; margin: 0 0 22px; color: var(--paper); }
+  .cta__text { font-size: 16px; line-height: 1.7; color: var(--muted); margin: 0 0 30px; max-width: 420px; }
+  .steps { display: flex; flex-direction: column; gap: 18px; }
+  .step { display: flex; align-items: center; gap: 13px; }
+  .step__num { width: 38px; height: 38px; flex: none; border: 1px solid rgba(168,162,119,0.35); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Old School United', serif; color: var(--brass); font-size: 15px; }
+  .step__text { font-size: 14.5px; color: #c9c7bc; }
+
+  .form { background: #131210; border: 1px solid rgba(168,162,119,0.18); border-radius: 8px; padding: 30px 28px; display: flex; flex-direction: column; gap: 16px; }
+  .field label { display: block; font-size: 12.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted-2); font-weight: 600; margin-bottom: 7px; }
+  .field input, .field textarea { width: 100%; background: var(--ink); border: 1px solid rgba(255,255,255,0.12); border-radius: 4px; padding: 13px 14px; color: var(--paper); font-family: 'Archivo', sans-serif; font-size: 15px; transition: border-color .15s; }
+  .field textarea { resize: vertical; line-height: 1.5; }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .form__submit { margin-top: 6px; cursor: pointer; border: none; color: var(--ink); background: var(--brass); font-family: 'Archivo', sans-serif; font-size: 15px; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; padding: 16px; border-radius: 4px; display: flex; align-items: center; justify-content: center; gap: 10px; box-shadow: 0 8px 30px rgba(168,162,119,0.2); transition: background-color .15s; }
+  .form__submit:hover { background: var(--brass-hover); }
+  .form__note { text-align: center; font-size: 12px; color: var(--dim-2); margin: 2px 0 0; }
+  .form__submit-icon { font-size: 18px; line-height: 1; }
+
+  /* footer */
+  .footer { border-top: 1px solid rgba(168,162,119,0.14); background: var(--ink-2); padding: 58px 24px 34px; }
+  .footer__grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 36px; }
+  .footer__brand { font-family: 'Old School United', serif; font-size: 24px; color: var(--paper); margin-bottom: 14px; }
+  .footer__brand b { color: var(--brass); font-weight: 400; }
+  .footer__desc { font-size: 14px; color: var(--dim); line-height: 1.6; max-width: 300px; margin: 0; }
+  .footer__heading { font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--brass); font-weight: 700; margin-bottom: 14px; }
+  .footer__links { display: flex; flex-direction: column; gap: 9px; }
+  .footer__links a { text-decoration: none; color: var(--muted); font-size: 14.5px; display: flex; align-items: center; gap: 8px; }
+  .footer__links a:hover { color: var(--paper); }
+  .footer__links a span { color: var(--brass); }
+  .footer__bottom { max-width: 1200px; margin: 36px auto 0; padding-top: 22px; border-top: 1px solid rgba(255,255,255,0.07); display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center; }
+  .footer__bottom span { font-size: 13px; color: var(--dim-2); }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <header class="nav">
+    <div class="nav__inner">
+      <a href="#top" class="brand">
+        <img src="assets/img/profile.png" alt="Bea, tatuadora da beachris.ink" class="brand__avatar">
+        <span class="brand__name">beachris<b>.ink</b></span>
+      </a>
+      <nav class="nav__links">
+        <a href="#sobre" class="nav__link">Sobre</a>
+        <a href="#portfolio" class="nav__link">Portfólio</a>
+        <a href="#orcamento" class="btn btn--brass btn--sm">Orçamento</a>
+      </nav>
+    </div>
+  </header>
+
+  <section id="top" class="hero">
+    <div class="hero__glow"></div>
+    <div class="hero__grain"></div>
+    <div class="hero__grid">
+      <div class="hero__copy">
+        <div class="chip chip--hero">
+          <span class="chip__dot"></span>
+          <span class="chip__label">Agenda aberta</span>
+        </div>
+        <h1 class="hero__title">Traço firme.<br><em>Retrato de quem você ama.</em></h1>
+        <p class="hero__lead">
+          Tatuagem <strong>Old School</strong> e <strong>retrato de pet</strong> no mesmo estúdio — preto fechado, contorno firme e o cuidado de transformar uma lembrança em traço permanente.
+        </p>
+        <div class="hero__actions">
+          <a href="#orcamento" class="btn btn--brass btn--lg">Pedir orçamento</a>
+          <a href="#portfolio" class="btn btn--outline btn--lg">Ver o portfólio</a>
+        </div>
+        <div class="hero__stats">
+          <div><div class="stat__num">7+</div><div class="stat__label">Anos de agulha</div></div>
+          <div class="stat__rule"></div>
+          <div><div class="stat__num">300+</div><div class="stat__label">Pets na pele</div></div>
+          <div class="stat__rule"></div>
+          <div><div class="stat__num">2</div><div class="stat__label">Estilos, do jeito certo</div></div>
+        </div>
+      </div>
+      <div class="hero__portrait">
+        <div class="hero__ring"></div>
+        <img src="assets/img/profile-hero.png" alt="Bea, tatuadora da beachris.ink">
+        <div class="hero__handle"><span>@beachris.ink</span></div>
+      </div>
+    </div>
+    <div class="hero__scroll">Role para baixo</div>
+  </section>
+
+  <!-- Tour Europa — remover após agosto -->
+  <section class="tour">
+    <div class="tour__flags"><div></div><div></div></div>
+    <div class="tour__overlay"></div>
+    <div class="tour__content">
+      <div class="chip">
+        <span class="chip__dot"></span>
+        <span class="chip__label chip__label--brass">Agenda especial em agosto</span>
+      </div>
+      <h2 class="tour__title">Esse ano eu também tatuo na <em>Europa</em></h2>
+      <p class="tour__text">Malas prontas. Em agosto chego na Europa com poucas vagas abertas pra Old School e retrato de pet. Se você mora por lá — ou conhece alguém — essa é a brecha pra fechar uma sessão comigo.</p>
+      <div class="tour__dates">
+        <div class="tour__date">
+          <div class="tour__date-city">🇮🇪 Galway, Irlanda</div>
+          <div class="tour__date-range">5 a 15 de agosto</div>
+        </div>
+        <div class="tour__date">
+          <div class="tour__date-city">🇪🇸 Barcelona, Espanha</div>
+          <div class="tour__date-range">21 e 22 de agosto</div>
+        </div>
+      </div>
+      <a href="#orcamento" class="btn btn--brass btn--lg">Quero garantir minha vaga</a>
+    </div>
+  </section>
+
+  <div class="marquee">
+    <div class="marquee__track">
+      <div class="marquee__row">
+        <span>Old School</span><span>✦</span><span>Pet Portraits</span><span>✦</span><span>Fine Line</span><span>✦</span><span>Custom Design</span><span>✦</span><span>Blackwork</span><span>✦</span>
+      </div>
+      <div class="marquee__row" aria-hidden="true">
+        <span>Old School</span><span>✦</span><span>Pet Portraits</span><span>✦</span><span>Fine Line</span><span>✦</span><span>Custom Design</span><span>✦</span><span>Blackwork</span><span>✦</span>
+      </div>
+    </div>
+  </div>
+
+  <section id="sobre" class="about">
+    <div class="about__media">
+      <img src="assets/img/image1.jpg" alt="Bea, tatuadora da beachris.ink">
+      <div class="about__tag"><p>@beachris.ink</p></div>
+    </div>
+    <div>
+      <div class="eyebrow">Quem tatua</div>
+      <h2 class="about__title">Raiz no traço, carinho no retrato</h2>
+      <p class="about__text">
+        Sou a Bea. Tatuo há mais de sete anos e ainda fico com aquele friozinho quando fecho um desenho novo. Old School sempre foi o meu chão — mas foi tatuando <strong>retrato de pet</strong> que entendi para que serve o meu trabalho de verdade: pegar aquela foto que você ama e transformar em desenho que não sai nunca mais.
+      </p>
+      <p class="about__text">
+        Trabalho com preto bem fechado, contorno firme e sombra na medida certa, do jeito que Old School se tatua há décadas. Gato arisco, cachorro que já não está mais aqui, vira-lata sem raça definida: cada um ganha um desenho feito à mão, só seu.
+      </p>
+      <div class="about__cards">
+        <div class="about__card">
+          <div class="about__card-title">Old School</div>
+          <div class="about__card-text">Traço grosso, cor viva, ícone clássico.</div>
+        </div>
+        <div class="about__card">
+          <div class="about__card-title">Pet Portraits</div>
+          <div class="about__card-text">A cara do seu bicho, sem photoshop no coração.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="portfolio" class="portfolio">
+    <div class="gallery-pin">
+      <div class="gallery-sticky">
+        <div class="portfolio__head">
+          <div>
+            <div class="eyebrow eyebrow--tight">Portfólio</div>
+            <h2 class="portfolio__title">Trabalhos recentes</h2>
+          </div>
+          <p class="portfolio__note">Um recorte do que tenho feito ultimamente — do retrato de bicho colorido ao blackwork mais fechado.</p>
+        </div>
+        <div class="gallery-middle">
+          <div class="gallery-track">
+            <img src="assets/img/dog-color.jpg" alt="Retrato colorido de cachorro, estilo old school com flores">
+            <img src="assets/img/frenchie.jpg" alt="Retrato em preto e cinza de bulldog francês com flores">
+            <img src="assets/img/cat-scream.jpg" alt="Tatuagem blackwork de gato rosnando">
+            <img src="assets/img/cats-hearts.jpg" alt="Dois retratos de gatos emoldurados em corações old school">
+            <img src="assets/img/dog-blackwork.jpg" alt="Tatuagem blackwork de cachorro com óculos e letreiro">
+          </div>
+        </div>
+        <div class="marquee">
+          <div class="marquee__track">
+            <div class="marquee__row">
+              <span>Old School</span><span>✦</span><span>Pet Portraits</span><span>✦</span><span>Fine Line</span><span>✦</span><span>Custom Design</span><span>✦</span><span>Blackwork</span><span>✦</span>
+            </div>
+            <div class="marquee__row" aria-hidden="true">
+              <span>Old School</span><span>✦</span><span>Pet Portraits</span><span>✦</span><span>Fine Line</span><span>✦</span><span>Custom Design</span><span>✦</span><span>Blackwork</span><span>✦</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="orcamento" class="cta">
+    <div class="cta__glow"></div>
+    <div class="cta__grid">
+      <div>
+        <div class="eyebrow">Vamos tatuar</div>
+        <h2 class="cta__title">Peça seu orçamento pelo WhatsApp</h2>
+        <p class="cta__text">Conte o que você tem em mente. Preencha aqui, clique em enviar, e a mensagem já chega organizada no meu WhatsApp — sem enrolação.</p>
+        <div class="steps">
+          <div class="step">
+            <span class="step__num">1</span>
+            <span class="step__text">Envie sua ideia e algumas fotos de referência.</span>
+          </div>
+          <div class="step">
+            <span class="step__num">2</span>
+            <span class="step__text">Eu desenho, do meu jeito, só pra você.</span>
+          </div>
+          <div class="step">
+            <span class="step__num">3</span>
+            <span class="step__text">Marcamos a data e seguimos para a sessão.</span>
+          </div>
+        </div>
+      </div>
+
+      <form id="quote-form" class="form">
+        <div class="field">
+          <label for="nome">Nome</label>
+          <input id="nome" type="text" placeholder="Como posso te chamar?">
+        </div>
+        <div class="field">
+          <label for="telefone">Telefone / WhatsApp</label>
+          <input id="telefone" type="tel" placeholder="(11) 90000-0000">
+        </div>
+        <div class="field">
+          <label for="ideia">Ideia da tatuagem</label>
+          <textarea id="ideia" rows="4" placeholder="Descreva sua ideia, estilo e referências (ex: retrato do meu gato preto em old school)"></textarea>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="local">Local do corpo</label>
+            <input id="local" type="text" placeholder="Ex: antebraço">
+          </div>
+          <div class="field">
+            <label for="tamanho">Tamanho (cm)</label>
+            <input id="tamanho" type="text" placeholder="Ex: 15 cm">
+          </div>
+        </div>
+        <button type="submit" class="form__submit">
+          <span class="form__submit-icon">➜</span> Enviar no WhatsApp
+        </button>
+        <p class="form__note">Você será redirecionado com a mensagem já preenchida.</p>
+      </form>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__brand">beachris<b>.ink</b></div>
+        <p class="footer__desc">Old School raiz e retrato de bicho, tatuado à mão, em São Paulo.</p>
+      </div>
+      <div>
+        <div class="footer__heading">Navegar</div>
+        <div class="footer__links">
+          <a href="#sobre">Sobre</a>
+          <a href="#portfolio">Portfólio</a>
+          <a href="#orcamento">Orçamento</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer__heading">Redes</div>
+        <div class="footer__links">
+          <a href="https://instagram.com/beachris.ink" target="_blank"><span>↗</span> Instagram</a>
+          <a href="https://tiktok.com/@beachris.ink" target="_blank"><span>↗</span> TikTok</a>
+          <a href="#orcamento"><span>↗</span> WhatsApp</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© <span id="year"></span> beachris.ink · Todos os direitos reservados.</span>
+      <span>Feito com tinta preta e café.</span>
+    </div>
+  </footer>
+</div>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const WHATSAPP_NUMBER = '5511900000000'; // TODO: trocar pelo número real
+
+  document.getElementById('quote-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const nome = document.getElementById('nome').value || '—';
+    const telefone = document.getElementById('telefone').value || '—';
+    const ideia = document.getElementById('ideia').value || '—';
+    const local = document.getElementById('local').value || '—';
+    const tamanho = document.getElementById('tamanho').value || '—';
+
+    const mensagem = [
+      '*Novo pedido de orçamento — beachris.ink*',
+      '',
+      `*Nome:* ${nome}`,
+      `*Telefone:* ${telefone}`,
+      `*Ideia da tatuagem:* ${ideia}`,
+      `*Local do corpo:* ${local}`,
+      `*Tamanho estimado:* ${tamanho}`,
+    ].join('\n');
+
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensagem)}`, '_blank');
+  });
+
+  const MARQUEE_SPEED = 70; // px por segundo
+
+  function setupMarquee(marqueeEl) {
+    const track = marqueeEl.querySelector('.marquee__track');
+    const baseRow = track.querySelector('.marquee__row');
+    if (!track || !baseRow) return;
+
+    function rebuild() {
+      track.style.animation = 'none';
+      track.querySelectorAll('.marquee__row').forEach((row, i) => { if (i > 0) row.remove(); });
+
+      const rowWidth = baseRow.getBoundingClientRect().width;
+      if (!rowWidth) return;
+
+      const containerWidth = marqueeEl.clientWidth;
+      const targetWidth = containerWidth * 2 + rowWidth;
+      let totalWidth = rowWidth;
+      while (totalWidth < targetWidth) {
+        const clone = baseRow.cloneNode(true);
+        clone.setAttribute('aria-hidden', 'true');
+        track.appendChild(clone);
+        totalWidth += rowWidth;
+      }
+
+      track.style.setProperty('--marquee-distance', `${rowWidth}px`);
+      track.style.setProperty('--marquee-duration', `${rowWidth / MARQUEE_SPEED}s`);
+      void track.offsetWidth;
+      track.style.animation = '';
+    }
+
+    rebuild();
+    window.addEventListener('resize', rebuild);
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(rebuild);
+    }
+  }
+
+  document.querySelectorAll('.marquee').forEach(setupMarquee);
+
+  const galleryPin = document.querySelector('.gallery-pin');
+  const gallerySticky = document.querySelector('.gallery-sticky');
+  const galleryTrack = document.querySelector('.gallery-track');
+  const NAV_HEIGHT = 61;
+
+  function updateGalleryHeight() {
+    const maxTranslate = Math.max(galleryTrack.scrollWidth - gallerySticky.clientWidth, 0);
+    galleryPin.style.height = `${gallerySticky.offsetHeight + maxTranslate}px`;
+  }
+
+  function updateGalleryScroll() {
+    const maxTranslate = Math.max(galleryTrack.scrollWidth - gallerySticky.clientWidth, 0);
+    const scrollable = galleryPin.offsetHeight - gallerySticky.offsetHeight;
+    const progress = scrollable > 0
+      ? Math.min(Math.max((NAV_HEIGHT - galleryPin.getBoundingClientRect().top) / scrollable, 0), 1)
+      : 0;
+    galleryTrack.style.transform = `translateX(${-progress * maxTranslate}px)`;
+  }
+
+  if (galleryPin && gallerySticky && galleryTrack) {
+    updateGalleryHeight();
+    updateGalleryScroll();
+    window.addEventListener('scroll', updateGalleryScroll, { passive: true });
+    window.addEventListener('resize', () => {
+      updateGalleryHeight();
+      updateGalleryScroll();
+    });
+  }
+</script>
+</body>
+</html>

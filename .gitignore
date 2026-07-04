@@ -1,0 +1,5 @@
+# Design reference material and the raw font package — not referenced by index.html.
+# Only assets/fonts/OldSchoolUnited-Regular.ttf ships; keep these out of the deployed repo.
+/refs/
+/old_school_united/
+/old_school_united.zip
