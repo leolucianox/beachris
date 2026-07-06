@@ -2,7 +2,8 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0c0c0b">
 <title>beachris.ink — Old School e retrato de pet, tatuado à mão</title>
 <meta name="description" content="Bea tatua Old School raiz e retrato de pet em São Paulo. Preto fechado, traço grosso, desenho exclusivo pra cada bicho.">
 <!-- TODO: defina o domínio real e atualize canonical, og:url e o "url" do JSON-LD abaixo -->
@@ -76,9 +77,9 @@
   }
 
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; scrollbar-width: none; -ms-overflow-style: none; }
+  html { scroll-behavior: smooth; scrollbar-width: none; -ms-overflow-style: none; background: var(--ink); }
   html::-webkit-scrollbar { display: none; }
-  body { margin: 0; overflow-x: hidden; }
+  body { margin: 0; overflow-x: hidden; background: var(--ink); }
   ::selection { background: var(--brass); color: var(--ink); }
   input::placeholder, textarea::placeholder { color: var(--dim-2); }
   input:focus, textarea:focus { outline: none; border-color: var(--brass) !important; }
@@ -151,6 +152,10 @@
     .btn--lg { font-size: 12px; padding: 10px 12px; }
     .hero__actions { flex-wrap: nowrap; gap: 8px; }
     .hero__actions .btn { flex: 1 1 0; justify-content: center; white-space: nowrap; }
+
+    .hero__stats { width: 100%; gap: 14px; margin-left: 0; }
+    .hero__stats > div:not(.stat__rule) { flex: 1 1 0; min-width: 0; }
+    .stat__label { font-size: 10px; }
 
     .tour__dates { flex-wrap: nowrap; gap: 8px; }
     .tour__date { flex: 1 1 0; padding: 10px 10px; }
