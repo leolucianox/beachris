@@ -130,7 +130,7 @@
   .hero__actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
   .hero__stats { display: flex; gap: 34px; margin: 48px 0 0 3px; }
   .stat__num { font-family: 'Old School United', serif; font-size: 30px; color: var(--brass); line-height: 1; }
-  .stat__label { font-size: 12.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dim); margin-top: 7px; }
+  .stat__label { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dim); margin-top: 7px; white-space: nowrap; }
   .stat__rule { width: 1px; background: rgba(255,255,255,0.1); }
 
   .hero__portrait { position: relative; max-width: 400px; margin: 0 auto; animation: rise 0.9s ease both; transform: translateY(-10px); }
@@ -147,6 +147,15 @@
   }
   @media (max-width: 640px) {
     .footer__grid { grid-template-columns: 1fr 1fr !important; gap: 28px !important; }
+
+    .btn--lg { font-size: 12px; padding: 10px 12px; }
+    .hero__actions { flex-wrap: nowrap; gap: 8px; }
+    .hero__actions .btn { flex: 1 1 0; justify-content: center; white-space: nowrap; }
+
+    .tour__dates { flex-wrap: nowrap; gap: 8px; }
+    .tour__date { flex: 1 1 0; padding: 10px 10px; }
+    .tour__date-city { font-size: 12px; }
+    .tour__date-range { font-size: 11px; }
   }
 
   /* tour banner */
@@ -282,11 +291,11 @@
           <a href="#portfolio" class="btn btn--outline btn--lg">Ver o portfólio</a>
         </div>
         <div class="hero__stats">
-          <div><div class="stat__num">7+</div><div class="stat__label">Anos de agulha</div></div>
+          <div><div class="stat__num">7+</div><div class="stat__label">Anos de<br>agulha</div></div>
           <div class="stat__rule"></div>
-          <div><div class="stat__num">300+</div><div class="stat__label">Pets na pele</div></div>
+          <div><div class="stat__num">300+</div><div class="stat__label">Pets na<br>pele</div></div>
           <div class="stat__rule"></div>
-          <div><div class="stat__num">2</div><div class="stat__label">Estilos, do jeito certo</div></div>
+          <div><div class="stat__num">2</div><div class="stat__label">Estilos, do<br>jeito certo</div></div>
         </div>
       </div>
       <div class="hero__portrait">
